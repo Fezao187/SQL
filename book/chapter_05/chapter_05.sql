@@ -174,21 +174,21 @@ $$
 $$
 LANGUAGE sql IMMUTABLE;
 
-CREATE AGGREGATE median(anyelement) (
-  SFUNC=array_append,
-  STYPE=anyarray,
-  FINALFUNC=_final_median,
-  INITCOND='{}'
-);
+-- CREATE AGGREGATE median(anyelement) (
+--   SFUNC=array_append,
+--   STYPE=anyarray,
+--   FINALFUNC=_final_median,
+--   INITCOND='{}'
+-- );
 
 -- Listing 5-15: Using a median() aggregate function
 
-SELECT sum(p0010001) AS "County Sum",
-       round(avg(p0010001), 0) AS "County Average",
-       median(p0010001) AS "County Median",
-       percentile_cont(.5)
-       WITHIN GROUP (ORDER BY P0010001) AS "50th Percentile"
-FROM us_counties_2010;
+-- SELECT sum(p0010001) AS "County Sum",
+--        round(avg(p0010001), 0) AS "County Average",
+--        median(p0010001) AS "County Median",
+--        percentile_cont(.5)
+--        WITHIN GROUP (ORDER BY P0010001) AS "50th Percentile"
+-- FROM us_counties_2010;
 
 -- Listing 5-16: Finding the most-frequent value with mode()
 
