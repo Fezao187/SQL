@@ -117,3 +117,15 @@ VALUES  (1, 'Katlego','Maredi','346 Johannesburg','Katlego@gmail.com', 5, 1, 3, 
         (8, 'Johnny','Test','123 Johannesburg','Test@gmail.com', 2, 4, 4, 1),
         (9, 'Ben','Ten','121 Braam','Ben@gmail.com', 4, 3, 2, 2),
         (10, 'Cyndi','Loper','11 Biccard','Cyndi@gmail.com', 1, 2, 1, 3);
+
+-- LEFT JOIN query that will display the department name, job title, salary figure and overtime hours worked.
+SELECT department.depart_name , roles.role AS job_title, salaries.salary_pa AS salary_figure, overtime_hours.overtime_hours AS overtime_hours_worked
+FROM employess
+LEFT JOIN department
+ON employess.depart_id = department.depart_id
+LEFT JOIN roles
+ON employess.role_id = roles.roles_id 
+LEFT JOIN salaries
+ON employess.salary_id = salaries.salary_id
+LEFT JOIN overtime_hours
+ON employess.overtime_id = overtime_hours.overtime_id;
