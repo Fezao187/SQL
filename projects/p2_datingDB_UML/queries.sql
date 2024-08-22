@@ -31,15 +31,16 @@ CREATE TABLE IF NOT EXISTS public.status
 
 CREATE TABLE IF NOT EXISTS public.zip_code
 (
-    zip_code bigint, --Check constraint
+    zip_code bigint,
     city character varying(50),
     province character varying(70),
-    PRIMARY KEY (zip_code),
+    PRIMARY KEY (zip_code)
 );
 
--- Add constraint for length
+-- Zip code limit to 4
 ALTER TABLE zip_code
-ADD CONSTRAINT zip_check CHECK (LENGHT(zip_code <= 4));
+ADD CONSTRAINT limit_zip_zode
+CHECK (LENGTH(CAST(zip_code AS TEXT)) <= 4);
 
 CREATE TABLE IF NOT EXISTS public.interests
 (
@@ -63,8 +64,8 @@ CREATE TABLE IF NOT EXISTS public.contacts_interests
 
 CREATE TABLE IF NOT EXISTS public.contact_seeking
 (
-    contact_id integer,
-    seeking_id integer
+    my_contacts_contact_id integer,
+    seeking_seeking_id integer
 );
 
 -- Add foreign keys
@@ -109,7 +110,7 @@ ALTER TABLE IF EXISTS public.contacts_interests
 
 
 ALTER TABLE IF EXISTS public.contact_seeking
-    ADD FOREIGN KEY (contact_id)
+    ADD FOREIGN KEY (my_contacts_contact_id)
     REFERENCES public.my_contacts (contact_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
@@ -117,7 +118,7 @@ ALTER TABLE IF EXISTS public.contact_seeking
 
 
 ALTER TABLE IF EXISTS public.contact_seeking
-    ADD FOREIGN KEY (seeking_id)
+    ADD FOREIGN KEY (seeking_seeking_id)
     REFERENCES public.seeking (seeking_id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
