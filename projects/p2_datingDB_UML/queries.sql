@@ -31,11 +31,15 @@ CREATE TABLE IF NOT EXISTS public.status
 
 CREATE TABLE IF NOT EXISTS public.zip_code
 (
-    zip_code bigint CHECK (zip_code <= 4), --Check constraint
+    zip_code bigint, --Check constraint
     city character varying(50),
     province character varying(70),
-    PRIMARY KEY (zip_code)
+    PRIMARY KEY (zip_code),
 );
+
+-- Add constraint for length
+ALTER TABLE zip_code
+ADD CONSTRAINT zip_check CHECK (LENGHT(zip_code <= 4));
 
 CREATE TABLE IF NOT EXISTS public.interests
 (
@@ -118,3 +122,25 @@ ALTER TABLE IF EXISTS public.contact_seeking
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
+
+-- Insert data
+-- Zip code
+INSERT INTO zip_code(zip_code, city, province)
+VALUES  (1431, 'Katlehong', 'Gauteng'),
+        (1475, 'Vosloorus','Gauteng'),
+        (1234, 'Bhisho', 'Eastern Cape'),
+        (1235, 'Gqeberha','Eastern Cape'),
+        (1236, 'Bloemfontein', 'Free State'),
+        (1237, 'Bethlehem','Free State'),
+        (1238, 'Durban', 'KwaZulu-Natal'),
+        (1239, 'Pietermaritzburg','KwaZulu-Natal'),
+        (1240, 'Jane Furse', 'Limpopo'),
+        (1241, 'Polokwane','Limpopo'),
+        (1242, 'Nelspruit', 'Mpumalanga'),
+        (1243, 'Mbombela','Mpumalanga'),
+        (1244, 'Kimberley', 'Northen Cape'),
+        (1245, 'Upington','Northen Cape'),
+        (1246, 'Mafikeng', 'North West'),
+        (1247, 'Vaal','North West'),
+        (1248, 'Cape Town', 'Western Cape'),
+        (1249, 'George','Western Cape');
