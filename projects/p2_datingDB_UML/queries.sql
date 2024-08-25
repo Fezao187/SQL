@@ -308,3 +308,21 @@ VALUES  (1, 1),
         (18, 2),
         (19, 3),
         (20, 4);
+
+-- A LEFT JOIN query that will display the profession, zip_code (postal_code, city and province), status, interests and seeking.
+SELECT profession.profession, zip_code.zip_code, zip_code.city, zip_code.province, status.status, interests.interest, seeking.seeking
+FROM my_contacts
+LEFT JOIN profession
+ON my_contacts.prof_id = profession.prof_id
+LEFT JOIN zip_code
+ON my_contacts.zip_code = zip_code.zip_code
+LEFT JOIN status
+ON my_contacts.status_id = status.status_id
+LEFT JOIN contacts_interests
+ON my_contacts.contact_id = contacts_interests.my_contacts_contact_id 
+LEFT JOIN interests
+ON interests.interest_id = contacts_interests.interests_interest_id
+LEFT JOIN contact_seeking
+ON my_contacts.contact_id = contact_seeking.my_contacts_contact_id 
+LEFT JOIN seeking
+ON seeking.seeking_id = contact_seeking.seeking_seeking_id
