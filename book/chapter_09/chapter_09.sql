@@ -208,7 +208,7 @@ DROP TABLE meat_poultry_egg_inspect_backup;
 START TRANSACTION;
 
 UPDATE meat_poultry_egg_inspect
-SET company = 'AGRO Merchantss Oakland LLC'
+SET company = 'AGRO Merchants Oakland LLC'
 WHERE company = 'AGRO Merchants Oakland, LLC';
 
 -- view changes
