@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS public.products
 CREATE TABLE IF NOT EXISTS public.cart
 (
     product_id integer,
-    qty integer,
-    PRIMARY KEY (product_id)
+    qty integer
 );
 
 -- Users table
@@ -77,7 +76,7 @@ ALTER TABLE IF EXISTS public.order_details
 
 ALTER TABLE IF EXISTS public.order_details
     ADD FOREIGN KEY (prod_id)
-    REFERENCES public.cart (product_id) MATCH SIMPLE
+    REFERENCES public.products (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -106,6 +105,7 @@ DO $$
     END;
 $$
 
+SELECT * FROM cart;
 -- Add Chips (if product does not exist, insert with qty 1)
 DO $$
     BEGIN
@@ -150,7 +150,69 @@ VALUES  (1),
 
 -- Insert data into Order details
 INSERT INTO order_details(order_header, prod_id, qty)
-VALUES  --(2,1,1)
-        (3,2,1);
+VALUES  (1,1,5),
+        (2,2,4);
 
-DELETE FROM cart WHERE product_id=1;
+SELECT * FROM products;
+SELECT * FROM cart;
+SELECT * FROM users;
+SELECT * FROM order_header;
+SELECT * FROM order_details;
+
+-- Delete cart table after order details
+DELETE FROM cart;
+
+-- Print a single order using inner join
+SELECT OH.order_id, U.username, OH.order_date, P.name AS Product_Name, OD.qty
+FROM order_header AS OH
+INNER JOIN users AS U ON OH.user_id = U.user_id
+INNER JOIN order_details AS OD ON OH.order_id = OD.order_header
+INNER JOIN products AS P ON OD.prod_id = P.id
+WHERE OH.order_id=2;
+
+-- Printing all orders for a specific day shopping 
+SELECT OH.order_id, U.username, OH.order_date, P.name AS Product_Name, OD.qty
+FROM order_header AS OH
+INNER JOIN users AS U ON OH.user_id = U.user_id
+INNER JOIN order_details AS OD ON OH.order_id = OD.order_header
+INNER JOIN products AS P ON OD.prod_id = P.id
+WHERE DATE(OH.order_date)='2024-09-02';
+
+-- Bonus: Creating functions for adding and removing item
+-- Add function
+CREATE OR REPLACE FUNCTION add_item(prod_id integer, iqty integer)
+RETURNS void AS $$
+BEGIN
+     IF EXISTS (SELECT * FROM cart WHERE product_id=prod_id)
+            THEN 
+                UPDATE cart SET qty =qty +1 WHERE product_id =prod_id;
+            ELSE
+                INSERT INTO cart(product_id,qty) VALUES (prod_id,iqty);
+            END IF;
+END; $$
+LANGUAGE plpgsql;
+
+-- Test add item function
+-- Add coke
+SELECT add_item(1,1);
+-- Add chips
+SELECT add_item(2,1);
+
+-- Remove item function
+CREATE OR REPLACE FUNCTION remove_item(prod_id integer)
+RETURNS void AS $$
+BEGIN
+    IF EXISTS (SELECT * FROM cart WHERE qty>1)
+            THEN
+                UPDATE cart SET qty=qty-1 WHERE product_id=prod_id;
+            ELSE 
+                DELETE FROM cart WHERE product_id=prod_id;
+            END IF;
+END; $$
+LANGUAGE plpgsql;
+
+-- Test remove item function
+-- Remove coke
+SELECT remove_item(1);
+-- Remove chips
+SELECT remove_item(2);
