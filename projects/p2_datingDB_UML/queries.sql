@@ -309,6 +309,16 @@ VALUES  (1, 1),
         (19, 3),
         (20, 4);
 
+-- Select statment for all tables
+SELECT * FROM contact_seeking;
+SELECT * FROM contacts_interests;
+SELECT * FROM interests;
+SELECT * FROM my_contacts;
+SELECT * FROM profession;
+SELECT * FROM seeking;
+SELECT * FROM status;
+SELECT * FROM zip_code;
+	
 -- A LEFT JOIN query that will display the profession, zip_code (postal_code, city and province), status, interests and seeking.
 SELECT profession.profession, zip_code.zip_code, zip_code.city, zip_code.province, status.status, interests.interest, seeking.seeking
 FROM my_contacts
@@ -326,3 +336,4 @@ LEFT JOIN contact_seeking
 ON my_contacts.contact_id = contact_seeking.my_contacts_contact_id 
 LEFT JOIN seeking
 ON seeking.seeking_id = contact_seeking.seeking_seeking_id
+
