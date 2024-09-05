@@ -130,6 +130,7 @@ DO $$
             END IF;
     END;
 $$
+SELECT * FROM cart;
 
 -- Chips
 DO $$
@@ -197,6 +198,7 @@ LANGUAGE plpgsql;
 SELECT add_item(1,1);
 -- Add chips
 SELECT add_item(2,1);
+SELECT * FROM cart;
 
 -- Remove item function
 CREATE OR REPLACE FUNCTION remove_item(prod_id integer)
@@ -216,3 +218,5 @@ LANGUAGE plpgsql;
 SELECT remove_item(1);
 -- Remove chips
 SELECT remove_item(2);
+
+SELECT * FROM cart;
