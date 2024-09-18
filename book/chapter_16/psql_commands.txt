@@ -63,7 +63,7 @@ SELECT * FROM grades;
 -- Set psql to output results
 -- Note that Windows users must suppply forward slashes for
 -- this command, which is opposite of normal use.
-\o 'C:/BootCamp/7_PostgresSQL/My_SQL/book/chapter_16/query_output.csv'
+\o 'C:/BootCamp/7_PostgresSQL/My_SQL/book/chapter_16/query_output1.csv'
 
 -- Run the query and output
 SELECT * FROM grades;

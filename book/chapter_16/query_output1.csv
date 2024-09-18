@@ -1,19 +1,5 @@
-student_id,1
-course_id,2
-course,English 11B
-grade,D
-
-student_id,1
-course_id,3
-course,World History 11B
-grade,C
-
-student_id,1
-course_id,4
-course,Trig 2
-grade,B
-
-student_id,1
-course_id,1
-course,Biology 2
-grade,C
+student_id,course_id,course,grade
+1,2,English 11B,D
+1,3,World History 11B,C
+1,4,Trig 2,B
+1,1,Biology 2,C
